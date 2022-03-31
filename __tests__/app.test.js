@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const GithubUser = require('../lib/models/GithubUser');
 
 jest.mock('../lib/utils/gitHubUtils.js');
 
@@ -39,12 +40,16 @@ describe('Github Auth Routes', () => {
   });
 
   it('logs out user with delete', async () => {
-    const req = await request
-      .agent(app)
-      .get('/api/v1/github/login/callback?code=42')
-      .redirects(1);
-    let res = await agent.delete('/api/v1/auth/dashboard');
-    console.log('req.body', res.body);
+    const agent = request.agent(app);
+    await GithubUser.insert({
+      username: 'test_user',
+      email: 'test@email.com',
+      avatar: 'testimage.com/image.png',
+    });
+    // used below console to confirm user was inputted into table
+    // console.log('user', user);
+    const res = await agent.delete('/api/v1/auth/dashboard');
+
     expect(res.body).toEqual({ success: true, message: 'Sign out Successful' });
   });
 });
