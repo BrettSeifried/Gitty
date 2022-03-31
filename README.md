@@ -2,6 +2,7 @@
 
 ## Logging in
 
+[x] redirect to github OAuth
 [] log in via .post
 [] log out via .delete
 [] authentication through middleware
