@@ -37,4 +37,14 @@ describe('Github Auth Routes', () => {
       exp: expect.any(Number),
     });
   });
+
+  it('logs out user with delete', async () => {
+    const req = await request
+      .agent(app)
+      .get('/api/v1/github/login/callback?code=42')
+      .redirects(1);
+    let res = await agent.delete('/api/v1/auth/dashboard');
+    console.log('req.body', res.body);
+    expect(res.body).toEqual({ success: true, message: 'Sign out Successful' });
+  });
 });
