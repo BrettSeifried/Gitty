@@ -3,6 +3,8 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
+jest.mock('../lib/utils/gitHubUtils.js');
+
 describe('alchemy-app routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -16,7 +18,7 @@ describe('alchemy-app routes', () => {
     const req = await request(app).get('/api/v1/auth/login');
 
     expect(req.header.location).toMatch(
-      '/https://github.com/login/oauth/authorize?client_id=[wd]+&scope=user&redirect_uri=http://localhost:7890/api/v1/github/login/callback'
+      /https:\/\/github.com\/login\/oauth\/authorize\?client_id=[\w\d]+&scope=user&redirect_uri=http:\/\/localhost:7890\/api\/v1\/auth\/login\/callback/i
     );
   });
 });
