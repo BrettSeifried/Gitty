@@ -29,14 +29,7 @@ describe('Github Auth Routes', () => {
       .get('/api/v1/auth/login/callback?code=42')
       .redirects(1);
 
-    expect(req.body).toEqual({
-      id: expect.any(String),
-      username: 'fake_github_user',
-      email: 'not-real@example.com',
-      avatar: expect.any(String),
-      iat: expect.any(Number),
-      exp: expect.any(Number),
-    });
+    expect(req.redirects[0]).toEqual(expect.stringContaining('api/v1/tweets'));
   });
 
   it('logs out user with delete', async () => {
@@ -46,10 +39,8 @@ describe('Github Auth Routes', () => {
       email: 'test@email.com',
       avatar: 'testimage.com/image.png',
     });
-    // used below console to confirm user was inputted into table
-    // console.log('user', user);
-    const res = await agent.delete('/api/v1/auth/dashboard');
 
+    const res = await agent.delete('/api/v1/auth/dashboard');
     expect(res.body).toEqual({ success: true, message: 'Sign out Successful' });
   });
 });
