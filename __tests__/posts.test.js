@@ -3,7 +3,7 @@ const app = require('../lib/app');
 const request = require('supertest');
 const pool = require('../lib/utils/pool');
 
-jest.mock('../lib/utils/gitHubUtils.js');
+jest.mock('../lib/utils/githubUtils.js');
 
 describe('Github Auth Routes', () => {
   beforeEach(() => {
