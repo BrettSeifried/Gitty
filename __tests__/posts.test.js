@@ -29,7 +29,7 @@ describe('Github Auth Routes', () => {
       });
   });
 
-  it.only('login user and show all posts', async () => {
+  it('login user and show all posts', async () => {
     const agent = request.agent(app);
 
     let res = await agent.get('/api/v1/tweets');
