@@ -23,7 +23,7 @@ describe('Github Auth Routes', () => {
       .send({ tweet: 'How do you center a Div?' })
       .then((res) => {
         expect(res.body).toEqual({
-          id: '1',
+          id: '2',
           tweet: 'How do you center a Div?',
         });
       });
@@ -39,6 +39,6 @@ describe('Github Auth Routes', () => {
 
     res = await agent.get('/api/v1/tweets');
     expect(res.status).toEqual(200);
-    expect(res.body).toEqual({ id: '1', tweet: 'How do you center a Div?' });
+    expect(res.body).toEqual([{ id: '1', tweet: 'How do you center a Div?' }]);
   });
 });

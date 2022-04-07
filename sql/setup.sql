@@ -14,4 +14,9 @@ CREATE TABLE github_users (
 CREATE TABLE tweets (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     tweet VARCHAR(225) NOT NULL
-)
+);
+
+INSERT INTO
+    tweets (tweet)
+VALUES
+    ('How do you center a Div?');
